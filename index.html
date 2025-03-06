@@ -15,9 +15,10 @@
 
         header {
             padding: 20px;
-            background: black;
+            background: #146EB4;
             text-align: center;
-            color: white;
+            color: #f2f2f2;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
             font-size: 2rem;
             font-weight: bold;
             
@@ -35,6 +36,8 @@
         .product-card {
             background-color: white;
             border-radius: 15px;
+            border-color: #dbd2d2;
+            border-style: solid;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -46,11 +49,12 @@
         }
 
         .product-image {
-            height: 250px;
+            height: auto;
             background-color: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
+            
         }
 
         .product-image img {
@@ -66,7 +70,7 @@
         .product-title {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #ff0057;
+            color: #232f3e;
             margin-bottom: 10px;
         }
 
@@ -84,13 +88,92 @@
             margin-top: 40px;
         }
         a {
-    text-decoration: none;
+    text-decoration: none;}
+    .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: black;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        .marquee-content {
+            display: flex;
+            animation: marquee 15s linear infinite;
+        }
+        .marquee-item {
+            padding: 8px 16px;
+            font-size: 14px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        @keyframes marquee {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+        .countdown-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ffffff;
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid #6C63FF;
 }
+
+.countdown-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #34495E;
+    margin-bottom: 5px;
+}
+
+.countdown-timer {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6C63FF;
+}
+
+@media (max-width: 768px) {
+    .countdown-container {
+        bottom: 10px;
+        right: 10px;
+        padding: 10px 20px;
+    }
+    .countdown-timer {
+        font-size: 1.2rem;
+    }
+}
+
+
 
     </style>
 </head>
 <body>
     <header>The <span style="color: red;">Deals</span> Space: An <span style="color: #ff9900;">Amazon</span> Affiliate </header>
+    <div class="countdown-container">
+        <div class="countdown-title">Limited Time Offer Ends In:</div>
+        <div class="countdown-timer" id="countdown">00:00:00</div>
+    </div>
+    
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <div class="marquee-item">Discounted Products.</div>
+            <div class="marquee-item">Amazon Affiliate.</div>
+            <div class="marquee-item">Premium finds</div>
+            <div class="marquee-item">100% Genuine Brand</div>
+            <div class="marquee-item">latest launches</div>
+            <div class="marquee-item">best price ever on the all products</div>
+            <div class="marquee-item">Last Chance! This Special Offer Disappears Soon!</div>
+            
+        </div>
+    </div>
     <main>
        <div class="container">
             <!-- 20 Products -->
@@ -278,6 +361,32 @@
     </main>
     <footer><p>©2025 The Deals Space. All Rights Reserved.</p>
     <p><span style="color: #878787;">As an Amazon Associated, we earn from qualifying purchases.</span> <span style="color: lightseagreen;">This does not affect the price you pay.</span></p><br>
-    <p>~ Maruf Ahmad</p></footer>
+<p>~ Maruf Ahmad</p></footer>
+<script>
+    function startCountdown(durationInSeconds) {
+        let remainingTime = durationInSeconds;
+        function updateCountdownDisplay() {
+            let hours = Math.floor(remainingTime / 3600).toString().padStart(2, '0');
+            let minutes = Math.floor((remainingTime % 3600) / 60).toString().padStart(2, '0');
+            let seconds = (remainingTime % 60).toString().padStart(2, '0');
+            document.getElementById("countdown").textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        updateCountdownDisplay();
+        let countdownInterval = setInterval(() => {
+            if (remainingTime > 0) {
+                remainingTime--;
+                updateCountdownDisplay();
+            } else {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").textContent = "00:00:00";
+            }
+        }, 1000);
+    }
+
+    // Set countdown duration (e.g., 2 hours 30 minutes)
+    startCountdown(2 * 3600 + 30 * 60);
+</script>
+
 </body>
 </html>
